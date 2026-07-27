@@ -1,0 +1,307 @@
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #12002e 0%, #1e0a5e 45%, #0d1f7a 100%);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 68px;
+}
+
+/* Glowing orbs */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 70%, rgba(255, 107, 53, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 15%, rgba(0, 212, 255, 0.18) 0%, transparent 48%),
+    radial-gradient(ellipse at 60% 85%, rgba(167, 139, 250, 0.15) 0%, transparent 45%);
+}
+
+/* Stars / dot pattern */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23ffffff' fill-opacity='0.06'/%3E%3Ccircle cx='42' cy='42' r='1' fill='%23ffffff' fill-opacity='0.04'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animated glow ring */
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.08);
+  top: 50%;
+  right: -100px;
+  transform: translateY(-50%);
+  box-shadow: 0 0 80px rgba(0, 212, 255, 0.06), inset 0 0 80px rgba(0, 212, 255, 0.04);
+}
+
+.hero-content {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px 60px;
+  width: 100%;
+  z-index: 1;
+}
+
+.hero-tagline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #00d4ff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding: 6px 16px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 30px;
+}
+
+.hero-tagline::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00d4ff;
+  box-shadow: 0 0 8px #00d4ff;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 6vw, 5.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.08;
+  margin-bottom: 22px;
+  letter-spacing: -1px;
+}
+
+.hero-title span {
+  background: linear-gradient(90deg, #ff6b35 0%, #ff9f43 50%, #ffd32a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin-bottom: 52px;
+  line-height: 1.75;
+}
+
+/* ── Search Card ─────────────────────────────── */
+.search-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 28px 32px;
+  max-width: 1020px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.trip-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 22px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  transition: all 0.2s;
+}
+
+.tab-btn.active {
+  background: linear-gradient(135deg, #ff6b35, #ff9f43);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(255, 107, 53, 0.4);
+}
+
+.tab-btn:hover:not(.active) {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  flex: 1;
+  min-width: 140px;
+}
+
+.form-group label {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.form-group label i {
+  color: #ff9f43;
+  font-size: 0.8rem;
+}
+
+.form-group input,
+.form-group select {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 13px 15px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: rgba(0, 212, 255, 0.6);
+  background: rgba(0, 212, 255, 0.06);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+}
+
+.form-group select option {
+  background: #1a0a40;
+  color: #fff;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) opacity(0.4);
+  cursor: pointer;
+}
+
+.swap-btn {
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.35);
+  color: #ff9f43;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  transition: background 0.2s, transform 0.35s, box-shadow 0.2s;
+}
+
+.swap-btn:hover {
+  background: rgba(255, 107, 53, 0.22);
+  transform: rotate(180deg);
+  box-shadow: 0 0 12px rgba(255, 107, 53, 0.3);
+}
+
+.search-btn {
+  background: linear-gradient(135deg, #ff6b35 0%, #ff9f43 100%);
+  border: none;
+  color: #fff;
+  padding: 15px 44px;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: flex-start;
+  font-family: 'Poppins', sans-serif;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 28px rgba(255, 107, 53, 0.45);
+  letter-spacing: 0.3px;
+}
+
+.search-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 36px rgba(255, 107, 53, 0.6);
+}
+
+/* ── 3D card tilt ──────────────────────────────── */
+.search-card {
+  transition: transform 0.12s ease, box-shadow 0.2s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* ── Decorative floating planes ────────────────── */
+.hero-deco-plane {
+  position: absolute;
+  font-size: 1.6rem;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+  filter: drop-shadow(0 0 8px rgba(0,212,255,0.6));
+}
+.hero-deco-plane.p1 {
+  top: 18%; left: -60px;
+  animation: fly-across 18s linear infinite;
+  animation-delay: 0s;
+}
+.hero-deco-plane.p2 {
+  top: 55%; left: -60px;
+  animation: fly-across 25s linear infinite;
+  animation-delay: -8s;
+  font-size: 1.1rem; opacity: 0.08;
+}
+.hero-deco-plane.p3 {
+  top: 35%; left: -60px;
+  animation: fly-across 20s linear infinite;
+  animation-delay: -14s;
+  font-size: 2rem; opacity: 0.06;
+}
+
+@keyframes fly-across {
+  0%   { transform: translateX(0)              rotate(-5deg); }
+  100% { transform: translateX(calc(100vw + 120px)) rotate(-5deg); }
+}
+
+@media (max-width: 768px) {
+  .search-card { padding: 20px; border-radius: 16px; }
+  .form-group { min-width: 100%; }
+  .swap-btn { display: none; }
+  .search-btn { width: 100%; justify-content: center; }
+  .hero-content { padding: 60px 16px 40px; }
+}

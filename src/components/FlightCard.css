@@ -1,0 +1,258 @@
+.flight-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: 0 2px 16px rgba(18,0,46,0.07);
+  border: 1px solid rgba(167,139,250,0.1);
+  transition: box-shadow 0.25s, border-color 0.25s;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.flight-card:hover {
+  box-shadow: 0 8px 32px rgba(18,0,46,0.14);
+  border-color: rgba(255,107,53,0.25);
+}
+.flight-card.sold-out { opacity: 0.6; }
+
+.fc-airline { display: flex; align-items: center; gap: 12px; }
+.fc-logo {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+}
+.fc-emoji { font-size: 1.4rem; }
+.fc-airline-info { flex: 1; }
+.fc-name { font-weight: 700; color: #12002e; font-size: 0.95rem; margin: 0; }
+.fc-num  { color: #9992b8; font-size: 0.75rem; margin: 2px 0 0; }
+.fc-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-left: auto; }
+
+.fc-stop-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; }
+.fc-stop-badge.direct { background: #dcfce7; color: #16a34a; }
+.fc-stop-badge.stop   { background: #fef3c7; color: #d97706; }
+.fc-seat-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: #fee2e2; color: #dc2626; }
+.fc-sold-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: #f1f5f9; color: #94a3b8; }
+
+.fc-route {
+  display: flex; align-items: center; gap: 12px;
+  padding: 16px 0;
+  border-top: 1px solid #f3f0ff;
+  border-bottom: 1px solid #f3f0ff;
+}
+.fc-point { min-width: 72px; }
+.fc-point.right { text-align: right; }
+.fc-time  { font-size: 1.6rem; font-weight: 800; color: #12002e; margin: 0; line-height: 1; letter-spacing: -0.5px; }
+.fc-code  { font-size: 1rem; font-weight: 700; color: #ff6b35; margin: 4px 0 2px; }
+.fc-city  { font-size: 0.75rem; color: #9992b8; margin: 0; }
+
+.fc-line-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.fc-duration { font-size: 0.82rem; color: #6655aa; font-weight: 600; }
+.fc-line { display: flex; align-items: center; width: 100%; gap: 4px; }
+.fc-line span { flex: 1; height: 1px; background: linear-gradient(90deg,#e0d8ff,#ffd0be); }
+.fc-line i { color: #ff9f43; font-size: 0.85rem; }
+.fc-stops-label { font-size: 0.72rem; font-weight: 600; color: #27ae60; }
+
+.fc-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fc-meta { display: flex; gap: 14px; flex-wrap: wrap; }
+.fc-meta span { font-size: 0.78rem; color: #8880a8; display: flex; align-items: center; gap: 5px; }
+.fc-meta i { color: #a78bfa; }
+
+.fc-price-block { display: flex; align-items: center; gap: 14px; }
+.fc-per   { font-size: 0.72rem; color: #9992b8; margin: 0; white-space: nowrap; }
+.fc-price { font-size: 1.3rem; font-weight: 800; color: #12002e; margin: 0; white-space: nowrap; letter-spacing: -0.5px; }
+
+.fc-btn {
+  background: linear-gradient(135deg,#ff6b35,#ff9f43);
+  border: none; color: #fff; padding: 11px 22px; border-radius: 12px;
+  font-size: 0.88rem; font-weight: 700; cursor: pointer;
+  font-family: 'Poppins',sans-serif; white-space: nowrap;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(255,107,53,0.35);
+}
+.fc-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(255,107,53,0.5); }
+.fc-btn:disabled { background: #e2e8f0; color: #94a3b8; box-shadow: none; cursor: not-allowed; }
+
+/* ── Booking Modal ────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 0, 30, 0.65);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: overlayIn 0.2s ease;
+}
+@keyframes overlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 460px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(18, 0, 46, 0.3);
+  animation: cardIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes cardIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0);    }
+}
+
+/* Header bar */
+.modal-card > h2:first-child,
+.modal-card > form > h2 {
+  display: none; /* we build our own header below */
+}
+
+/* We target the h2 that BookingModal renders at the top of the non-sent branch */
+.modal-card h2 {
+  margin: 0;
+  padding: 22px 24px 18px;
+  background: linear-gradient(135deg, #12002e, #1e0a5e);
+  color: #fff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.3px;
+  border-bottom: none;
+}
+
+/* Flight info block */
+.modal-flight-info {
+  padding: 18px 24px 14px;
+  background: #faf8ff;
+  border-bottom: 1px solid #ede9ff;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.modal-flight-info p {
+  margin: 0;
+  font-size: 0.87rem;
+  color: #4a3f70;
+  font-family: 'Poppins', sans-serif;
+}
+.modal-flight-info p:first-child {
+  font-weight: 700;
+  color: #12002e;
+  font-size: 0.95rem;
+}
+.modal-price {
+  font-size: 1.35rem !important;
+  font-weight: 800 !important;
+  color: #ff6b35 !important;
+  margin-top: 6px !important;
+  letter-spacing: -0.5px;
+}
+
+/* Form */
+.modal-card form {
+  padding: 20px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal-card form input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid #e0d8ff;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  color: #12002e;
+  background: #fdfcff;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.modal-card form input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+.modal-card form input::placeholder { color: #b0a8cc; }
+
+/* Buttons row */
+.modal-card form button[type="submit"] {
+  padding: 13px;
+  background: linear-gradient(135deg, #ff6b35, #ff9f43);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.38);
+  transition: box-shadow 0.2s, opacity 0.2s;
+  margin-top: 4px;
+}
+.modal-card form button[type="submit"]:hover:not(:disabled) {
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.5);
+}
+.modal-card form button[type="submit"]:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+.modal-card form button[type="button"] {
+  padding: 11px;
+  background: transparent;
+  border: 1.5px solid #e0d8ff;
+  border-radius: 12px;
+  color: #7c3aed;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.modal-card form button[type="button"]:hover {
+  background: #f3eeff;
+  border-color: #a78bfa;
+}
+
+/* Success state */
+.modal-success {
+  padding: 36px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.modal-success h2 {
+  background: none;
+  padding: 0;
+  color: #16a34a;
+  font-size: 1.3rem;
+}
+.modal-success p {
+  color: #4a3f70;
+  font-size: 0.9rem;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+.modal-success button {
+  margin-top: 12px;
+  padding: 11px 28px;
+  background: linear-gradient(135deg, #12002e, #1e0a5e);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+}
+
+@media (max-width: 580px) {
+  .fc-route { flex-direction: column; gap: 10px; }
+  .fc-point.right { text-align: left; }
+  .fc-footer { flex-direction: column; align-items: flex-start; }
+  .fc-price-block { width: 100%; justify-content: space-between; }
+}
