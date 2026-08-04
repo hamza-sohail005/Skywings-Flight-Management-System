@@ -1,16 +1,95 @@
-# React + Vite
+# ✈️ SkyWings
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**SkyWings** is a modern flight booking web app built with React and Vite — search flights, browse travel packages, book tickets with an animated 3D background, and get instant email confirmations.
 
-Currently, two official plugins are available:
+### 🔗 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**[https://skywingscom.netlify.app/](https://skywingscom.netlify.app/)**
 
-## React Compiler
+> Hosted on [Netlify](https://www.netlify.com/).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Flight Search** — search flights by origin, destination, and date
+- **Popular Routes & Packages** — browse curated travel packages
+- **Authentication** — sign up / log in (flights & packages are gated behind login)
+- **Booking Flow** — select class & passenger count, get a live price breakdown
+- **Email Confirmations** — booking and package confirmations sent via [EmailJS](https://www.emailjs.com/)
+- **3D Animated Background** — built with [Three.js](https://threejs.org/) and [React Three Fiber](https://docs.pmnd.rs/react-three-fiber)
+- **Client-side Routing** — custom lightweight routing using browser history (no router library)
+
+## Tech Stack
+
+| Layer     | Tech                                    |
+| --------- | ---------------------------------------- |
+| Frontend  | React 19, Vite                           |
+| 3D/Visual | Three.js, @react-three/fiber             |
+| Emails    | EmailJS                                  |
+| Mock API  | json-server                              |
+| Hosting   | Netlify                                  |
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18+ recommended)
+- npm
+
+### Installation
+
+```bash
+git clone https://github.com/<your-username>/sky-wings.git
+cd sky-wings
+npm install
+```
+
+### Running Locally
+
+The app uses [json-server](https://github.com/typicode/json-server) as a mock backend for user auth, so run both the API and the dev server:
+
+```bash
+# Terminal 1 — mock API (serves db.json on port 3001)
+npm run server
+
+# Terminal 2 — Vite dev server
+npm run dev
+```
+
+Then open the URL Vite prints (usually `http://localhost:5173`).
+
+### Other Scripts
+
+```bash
+npm run build     # production build
+npm run preview   # preview the production build locally
+npm run lint      # run ESLint
+```
+
+## Project Structure
+
+```
+src/
+├── components/     # Reusable UI (Navbar, Footer, FlightCard, BookingModal, PackageModal, SearchFlights)
+├── pages/          # Route-level pages (Home, FlightsPage, PackagesPage, AboutPage, Login, Signup)
+├── data/           # Static data (airports, flights, popular routes)
+├── services/       # Auth service (talks to json-server)
+├── styles/         # Global/page styles
+└── Floating3DBackground.jsx   # Three.js animated background
+```
+
+## Deployment
+
+This project is deployed on **Netlify**: [https://skywingscom.netlify.app/](https://skywingscom.netlify.app/)
+
+To deploy your own copy, connect the repo to Netlify with:
+
+- **Build command:** `npm run build`
+- **Publish directory:** `dist`
+
+> Note: the live demo uses static data/EmailJS for bookings — the `json-server` mock backend (`db.json`) is only for local development and isn't deployed.
+
+## License
+
+This project is for educational/portfolio purposes.
