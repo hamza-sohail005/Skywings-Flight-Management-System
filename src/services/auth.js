@@ -1,24 +1,44 @@
-const API = 'http://localhost:3001/users'
+const isDev = import.meta.env.DEV
+
+const LOCAL_API = 'http://localhost:3001/users'
+const PROD_API  = '/.netlify/functions/auth'
 
 export async function loginUser(email, password) {
-  const res   = await fetch(API)
-  const users = await res.json()
-  return users.find(u => u.email === email && u.password === password) || null
+  if (isDev) {
+    const res   = await fetch(LOCAL_API)
+    const users = await res.json()
+    return users.find(u => u.email === email && u.password === password) || null
+  }
+
+  const res  = await fetch(PROD_API, {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({ action: 'login', email, password }),
+  })
+  const data = await res.json()
+  return data.user || null
 }
 
 export async function signupUser(name, email, password) {
-  // check if email already exists
-  const res   = await fetch(API)
-  const users = await res.json()
-  const exists = users.find(u => u.email === email)
-  if (exists) return { error: 'Email already registered!' }
+  if (isDev) {
+    const res   = await fetch(LOCAL_API)
+    const users = await res.json()
+    const exists = users.find(u => u.email === email)
+    if (exists) return { error: 'Email already registered!' }
 
-  // save new user
-  const saveRes   = await fetch(API, {
+    const saveRes   = await fetch(LOCAL_API, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ name, email, password })
+    })
+    const savedUser = await saveRes.json()
+    return { user: savedUser }
+  }
+
+  const res = await fetch(PROD_API, {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify({ name, email, password })
+    body:    JSON.stringify({ action: 'signup', name, email, password }),
   })
-  const savedUser = await saveRes.json()
-  return { user: savedUser }
+  return await res.json()
 }

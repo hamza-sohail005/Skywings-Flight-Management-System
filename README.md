@@ -27,7 +27,8 @@
 | Frontend  | React 19, Vite                           |
 | 3D/Visual | Three.js, @react-three/fiber             |
 | Emails    | EmailJS                                  |
-| Mock API  | json-server                              |
+| Local API | json-server                              |
+| Prod API  | Netlify Functions + Netlify Blobs        |
 | Hosting   | Netlify                                  |
 
 ## Getting Started
@@ -87,8 +88,9 @@ To deploy your own copy, connect the repo to Netlify with:
 
 - **Build command:** `npm run build`
 - **Publish directory:** `dist`
+- **Functions directory:** `netlify/functions` (already set in `netlify.toml`)
 
-> Note: the live demo uses static data/EmailJS for bookings — the `json-server` mock backend (`db.json`) is only for local development and isn't deployed.
+> Note: `json-server` (`db.json`) is only used for local development. In production, auth is handled by the `netlify/functions/auth.js` serverless function, backed by [Netlify Blobs](https://docs.netlify.com/blobs/overview/) for storage — no extra account or service needed beyond Netlify itself. The store is seeded on first request with the same demo accounts as `db.json`. Passwords are stored in plain text in both setups; that's fine for this demo/portfolio project but not something to carry into a real production app.
 
 ## License
 
